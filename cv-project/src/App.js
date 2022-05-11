@@ -1,11 +1,19 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import Information from './components/Information';
+import General from './components/General';
 import './App.css';
 
 class App extends Component{
-  constructor(props){
-    super(props)
+  constructor(){
+    super()
   }
-
+  render(){
+    return(
+      <div>
+        <General/>
+      </div>
+    )
+  }
 }
 
 export default App;

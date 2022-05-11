@@ -1,11 +1,7 @@
-import React, {Component} from 'react'
-import './App.css';
+import React from 'react';
 
-class Information extends Component{
-    constructor(props){
-      super(props)
-    }
-    
-  }
-  
-  export default Information;
+const Information = (props) => {
+    //the possibility to leave prop fields empty works well for this
+}
+
+export default Information;
