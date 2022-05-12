@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Information from './Information'
 import uniqid from "uniqid";
 
 class General extends Component{
@@ -9,7 +10,6 @@ class General extends Component{
             nameInfo: '',
             emailInfo: '',
             phoneInfo: '',
-            id: uniqid() 
         },
 
         educationalInfo: {
@@ -37,20 +37,22 @@ class General extends Component{
         this.setState({
             generalInfo: {
                 [e.target.name]: e.target.value
+                
             },
 
             educationalInfo: {
-                [e.target.name]: e.target.value
-
+                [e.target.name]: e.target.value,
+                id: uniqid() //need to reset Id so it is different everytime
             },
 
             practicalInfo: {
-                [e.target.name]: e.target.value
+                [e.target.name]: e.target.value,
+                id: uniqid()
             }
         })
     }
 
-    submitGeneralInformation = (e) =>{
+    submitInformation = (e) =>{
         e.preventDefault()
         this.setState({
             educationArray: this.state.educationArray.concat(this.state.educationalInfo),
@@ -61,7 +63,6 @@ class General extends Component{
                 nameInfo: '',
                 emailInfo: '',
                 phoneInfo: '',
-                id: uniqid() 
             },
     
             educationalInfo: {
@@ -85,7 +86,7 @@ class General extends Component{
         const {generalInfo, educationalInfo, practicalInfo, educationArray, practicalArray} = this.state
         return(
             <div>
-                <form>
+                <form onSubmit={this.submitInformation}>
                 <h3>Personal information</h3>  
                 <label htmlFor="nameInput">Enter Name</label>
                 <input 
@@ -165,6 +166,12 @@ class General extends Component{
                     Save
                 </button>
                 </form>
+
+                <Information 
+                    generalInfo={generalInfo}
+                    educationArray={educationArray}
+                    practicalArray={practicalArray}
+                />
             </div>
         )
     }
