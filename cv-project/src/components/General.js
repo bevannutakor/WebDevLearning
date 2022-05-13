@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import Information from './Information'
 import uniqid from "uniqid";
+import '../App.css'
 
 class General extends Component{
     constructor(){
@@ -10,6 +11,7 @@ class General extends Component{
             nameInfo: '',
             emailInfo: '',
             phoneInfo: '',
+            id: uniqid()
         },
 
         educationalInfo: {
@@ -27,6 +29,7 @@ class General extends Component{
             id: uniqid()
         },
 
+        generalArray: [],
         educationArray: [],
         practicalArray: []
 
@@ -36,34 +39,52 @@ class General extends Component{
     handleChange = (e) => {
         this.setState({
             generalInfo: {
-                [e.target.name]: e.target.value
-                
+                ...this.state.generalInfo,
+                [e.target.name]: e.target.value,
+                id: this.state.generalInfo.id 
             },
 
             educationalInfo: {
+                ...this.state.educationalInfo,
                 [e.target.name]: e.target.value,
-                id: uniqid() //need to reset Id so it is different everytime
+                id: this.state.educationalInfo.id
             },
 
             practicalInfo: {
+                ...this.state.practicalInfo,
                 [e.target.name]: e.target.value,
-                id: uniqid()
+                id: this.state.practicalInfo.id
             }
         })
+        
     }
 
-    submitInformation = (e) =>{
+    submitInformation = (e) => {
         e.preventDefault()
+        //this functionality is so that you cannot add multiple name, email, and phone numbers
+        if(this.state.generalArray.length < 1){
+            this.setState({
+                generalArray: this.state.generalArray.concat(this.state.generalInfo),
+
+                generalInfo: {
+                    nameInfo: '',
+                    emailInfo: '',
+                    phoneInfo: '',
+                    id: uniqid() 
+                },
+            })
+        } else {
+            let items = [...this.state.generalArray];
+            let item = {...items[0]};
+            item = this.state.generalInfo;
+            items[0] = item;
+            this.setState({items})
+        }
+
         this.setState({
             educationArray: this.state.educationArray.concat(this.state.educationalInfo),
 
             practicalArray: this.state.educationArray.concat(this.state.educationalInfo),
-
-            generalInfo: {
-                nameInfo: '',
-                emailInfo: '',
-                phoneInfo: '',
-            },
     
             educationalInfo: {
                 schoolName: '',
@@ -83,7 +104,7 @@ class General extends Component{
     }
 
     render(){
-        const {generalInfo, educationalInfo, practicalInfo, educationArray, practicalArray} = this.state
+        const {generalInfo, educationalInfo, practicalInfo, generalArray, educationArray, practicalArray} = this.state
         return(
             <div>
                 <form onSubmit={this.submitInformation}>
@@ -92,73 +113,83 @@ class General extends Component{
                 <input 
                     onChange={this.handleChange}
                     value={generalInfo.nameInfo}
+                    name="nameInfo"
                     type="text" 
                     id="nameInput"
                 />
-                <label htmlFor="nameInput">Enter Email</label>
+                <label htmlFor="emailInput">Enter Email</label>
                 <input 
                     onChange={this.handleChange}
                     value={generalInfo.emailInfo}
+                    name="emailInfo"
                     type="text" 
                     id="emailInput"
                 />
-                <label htmlFor="nameInput">Enter Phone Number</label>
+                <label htmlFor="phoneInput">Enter Phone Number</label>
                 <input 
                     onChange={this.handleChange}
                     value={generalInfo.phoneInfo}
+                    name="phoneInfo"
                     type="text" 
-                    id="nameInput"
+                    id="phoneInput"
                 />
                 <br></br>
                 <h3>Educational Information</h3>
-                <label htmlFor="nameInput">Enter the name of your school</label>
+                <label htmlFor="schoolInput">Enter the name of your school</label>
                 <input 
                     onChange={this.handleChange}
                     value={educationalInfo.schoolName}
+                    name="schoolName"
                     type="text" 
                     id="schoolInput"
                 />
-                <label htmlFor="nameInput">Enter the name of your degree</label>
+                <label htmlFor="studyInput">Enter the name of your degree</label>
                 <input 
                     onChange={this.handleChange}
                     value={educationalInfo.studyName}
+                    name="studyName"
                     type="text" 
                     id="studyInput"
                 />
-                <label htmlFor="nameInput">Enter the time you have spent at the institution</label>
+                <label htmlFor="timeInput">Enter the time you have spent at the institution</label>
                 <input 
                     onChange={this.handleChange}
                     value={educationalInfo.educationDate}
+                    name="educationDate"
                     type="text" 
                     id="timeInput"
                 />
                 <br></br>
                 <h3>Job experience</h3>
-                <label htmlFor="nameInput">Enter the name of the company</label>
+                <label htmlFor="companyInput">Enter the name of the company</label>
                 <input 
                     onChange={this.handleChange}
                     value={practicalInfo.companyName}
+                    name="companyName"
                     type="text" 
                     id="companyInput"
                 />
-                <label htmlFor="nameInput">What was the name of the position you played</label>
+                <label htmlFor="positionInput">What was the name of the position you played</label>
                 <input 
                     onChange={this.handleChange}
                     value={practicalInfo.positionTitle}
+                    name="positionTitle"
                     type="text" 
                     id="positionInput"
                 />
-                <label htmlFor="nameInput">What did you do</label>
+                <label htmlFor="tasksInput">What did you do</label>
                 <textarea 
                     onChange={this.handleChange}
                     value={practicalInfo.mainTasks}
+                    name="mainTasks"
                     type="text" 
                     id="tasksInput"
                 />
-                <label htmlFor="nameInput">Enter the date of when you started to when you finished</label>
+                <label htmlFor="jobDateInput">Enter the date of when you started to when you finished</label>
                 <input 
                     onChange={this.handleChange}
                     value={practicalInfo.jobDate}
+                    name="jobDate"
                     type="text" 
                     id="jobDateInput"
                 />
@@ -168,7 +199,7 @@ class General extends Component{
                 </form>
 
                 <Information 
-                    generalInfo={generalInfo}
+                    generalArray={generalArray}
                     educationArray={educationArray}
                     practicalArray={practicalArray}
                 />

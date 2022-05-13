@@ -1,42 +1,54 @@
 import React from 'react';
+import '../App.css'
 
 const Information = (props) => {
-    const {generalInfo, educationArray, practicalArray} = props;
+    const {generalArray, educationArray, practicalArray} = props;
 
     return(
         <div>
             <div>
-                <p>{generalInfo.nameInfo}</p>
-                <p>{generalInfo.emailInfo}</p>
-                <p>{generalInfo.phoneInfo}</p>
+                <h3>General Information</h3>
+                {generalArray.map((generalInfo) => {
+                    return(
+                        <React.Fragment key={generalInfo.id}>
+                            <p>{generalInfo.nameInfo}</p>
+
+                            <p>{generalInfo.emailInfo}</p>
+
+                            <p>{generalInfo.phoneInfo}</p>
+                        </React.Fragment>
+                    )
+                })}
             </div>
             
             <div>
+                <h3>Educational Information</h3>
                 {educationArray.map((educationalInfo) => {
                     return(
-                        <div>
-                            <p key={educationalInfo.id}>{educationalInfo.schoolName}</p>
+                        <React.Fragment key={educationalInfo.id}>
+                            <p>{educationalInfo.schoolName}</p>
 
-                            <p key={educationalInfo.id}>{educationalInfo.studyName}</p>
+                            <p>{educationalInfo.studyName}</p>
 
-                            <p key={educationalInfo.id}>{educationalInfo.educationDate}</p>
-                        </div>
+                            <p>{educationalInfo.educationDate}</p>
+                        </React.Fragment>
                     )
                 })}
             </div>
 
             <div>
+                <h3>Job experience</h3>
                 {practicalArray.map((practicalInfo) => {
                     return(
-                        <div>
-                            <p key={practicalInfo.id}>{practicalInfo.companyName}</p>
+                        <React.Fragment key={practicalInfo.id}>
+                            <p>{practicalInfo.companyName}</p>
 
-                            <p key={practicalInfo.id}>{practicalInfo.positionTitle}</p> 
+                            <p >{practicalInfo.positionTitle}</p> 
 
-                            <p key={practicalInfo.id}>{practicalInfo.mainTasks}</p>
+                            <p>{practicalInfo.mainTasks}</p>
 
-                            <p key={practicalInfo.id}>{practicalInfo.jobDate}</p>                           
-                        </div>
+                            <p>{practicalInfo.jobDate}</p>                           
+                        </React.Fragment>
                     )
                 })}
             </div>
