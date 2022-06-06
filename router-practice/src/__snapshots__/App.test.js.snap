@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Component renders magnificent monkeys 1`] = `
+<div>
+  <button
+    type="button"
+  >
+    Click Me
+  </button>
+  <h1>
+    Magnificent Mondays
+  </h1>
+</div>
+`;
+
+exports[`App component renders magnificent monkeys 1`] = `
+<div>
+  <button
+    type="button"
+  >
+    Click Me
+  </button>
+  <h1>
+    Magnificent Mondays
+  </h1>
+</div>
+`;
